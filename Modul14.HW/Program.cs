@@ -15,6 +15,8 @@
             phoneBook.Add(new Contact("Сергей", "Брин", 799900000013, "serg@example.com"));
             phoneBook.Add(new Contact("Иннокентий", "Смоктуновский", 799900000013, "innokentii@example.com"));
 
+            var sortedPhoneBook = phoneBook.OrderBy(s => s.Name).ThenBy(s => s.LastName);
+
             while (true)
             {
                 // Читаем введенный с консоли символ
@@ -33,24 +35,14 @@
                 else
                 {
                     // пропускаем нужное количество элементов и берем 2 для показа на странице
-                    var pageContent = phoneBook.Skip((pageNumber - 1) * 2).Take(2);
+                    var pageContent = sortedPhoneBook.Skip((pageNumber - 1) * 2).Take(2);
                     Console.WriteLine();
-
-                    pageContent = pageContent.OrderBy(p => p.Name);
 
                     // выводим результат
                     foreach (var entry in pageContent)
                         Console.WriteLine(entry.Name + " " + entry.LastName + ": " + entry.PhoneNumber);
 
-                    Console.WriteLine();
-
-                    pageContent = pageContent.OrderBy(p => p.LastName);
-
-                    // выводим результат
-                    foreach (var entry in pageContent)
-                        Console.WriteLine(entry.Name + " " + entry.LastName + ": " + entry.PhoneNumber);
-
-                    Console.WriteLine();
+                    
                 }
             }
         }
